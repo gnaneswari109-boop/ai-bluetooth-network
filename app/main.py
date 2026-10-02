@@ -7,3 +7,7 @@ app.include_router(router)
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
+
+@app.get("/")
+async def root():
+    return {"message": "AI Mesh MVP is running"}

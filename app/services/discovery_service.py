@@ -1,40 +1,19 @@
-from typing import Dict, List, Optional
-from uuid import uuid4
+from typing import Dict, List
 
-from app.models.agent import AgentRecord
-from app.services.message_bus import publish_event
-
-AGENTS: Dict[str, AgentRecord] = {}
+AGENTS: Dict[str, dict] = {}
 
 
-def register_agent(record: AgentRecord):
-    AGENTS[record.id] = record
-    publish_event("agent.discovery", {"event": "register", "agent_id": record.id})
-    return record
+def register_agent(agent: dict):
+    AGENTS[agent["agent_id"]] = agent
+    return agent
 
 
 def list_agents() -> List[dict]:
-    return [
-        {
-            "agent_id": agent.id,
-            "name": agent.name,
-            "role": agent.role,
-            "capabilities": agent.capabilities,
-            "status": agent.status,
-            "endpoint": agent.endpoint,
-        }
-        for agent in AGENTS.values()
-    ]
+    return list(AGENTS.values())
 
 
 def find_agents_by_capability(capability: str) -> List[dict]:
-    matches = []
-    for agent in AGENTS.values():
-        if capability in (agent.capabilities or []):
-            matches.append({
-                "agent_id": agent.id,
-                "name": agent.name,
-                "role": agent.role,
-                "capabilities": agent.capabilities,
-            })
-    return matches
+    return [
+        agent for agent in AGENTS.values()
+        if capability in (agent.get("capabilities") or [])
+    ]

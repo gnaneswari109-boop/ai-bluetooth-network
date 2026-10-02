@@ -1,14 +1,14 @@
 # AI Mesh MVP
 
-This project is a minimal Python prototype for a Bluetooth-like AI mesh.
+A minimal multi-agent AI mesh prototype inspired by Bluetooth discovery and pairing.
 
 ## Features
-- Agent registration and discovery
-- Session pairing across agents
-- Task creation and delegation
+- Agent registry and capability discovery
+- Session pairing between agents
+- Task creation and assignment
 - Shared context memory
-- Parallel-style execution using a task broker
-- Redis-backed event bus
+- Multi-agent orchestration via subtasks
+- Redis event bus support
 
 ## Run
 
@@ -19,9 +19,10 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-## Example flow
+## Example workflow
 
-1. Register two agents
-2. Create a task with a capability such as `research`
-3. Retrieve assigned task and update context
-4. Complete the task and inspect output
+1. Register agents
+2. Create task
+3. Assign to matching capability
+4. Update shared context
+5. Complete task

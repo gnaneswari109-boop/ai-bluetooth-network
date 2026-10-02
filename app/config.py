@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Any, Optional
 
 class Settings(BaseModel):
     app_name: str = "ai-mesh"
